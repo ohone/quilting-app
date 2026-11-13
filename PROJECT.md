@@ -24,9 +24,9 @@ service-worker asset list, WHATS_NEW). Commit and deploy when done.
 
 - **Folders: DONE & committed** on `app/` main — `d0f5a85` (folder CRUD, Folders view, backup v3, DB v2 `records` store), `a704426` (helper cleanup), `840f64f` (hoist `cardOf`, Home folder cards, add-designs button fix, folder-screen layout). Verified: unit tests pass per-file (48–49 tests), `shoot.mjs` screenshot suite clean, full e2e folder flow walked in headless Chromium with no console errors. WHATS_NEW updated. Remaining optional: backup round-trip browser check, a Folders shot in `shots/`.
 
-- **Note:** a duplicate folders worker was started by a second project chat ("Quilting App Design Folders and Composite Canvas"); its leftover WIP (broken `setFolder` call in `app.js`) was stashed and discarded by the composites worker. That session may still exist — stop it from that chat if it resurfaces.
+- **Note (duplicate sessions):** two other chats ("Quilting App Design Folders and Composite Canvas" 14d6bee9 and "Status Update Request" f0a556bf) have spawned duplicate workers in this same tree. The duplicate folders WIP was already stashed/discarded. A duplicate composites worker ("composites-build" 0c2d3db5, worker of f0a556bf) was told to STAND DOWN via steer message (2026-11-13); it cannot be stopped from this chat (403 — not our worker). Our own composites worker (198f7dea) was warned to check `git status`/`git diff` before coding and to work only on top of the committed b0b3fe0 state. If "composites-build" resurfaces and makes changes, its chat's orchestrator must stop it.
 
-- **Composites: IN PROGRESS** — worker "composites-build" building per `docs/features/composites.md` (started after folders landed; found+stashed the stale WIP above, verified baseline 48 tests pass).
+- **Composites: IN PROGRESS** — our worker "composites" (198f7dea) building per `docs/features/composites.md` on top of committed folders work (b0b3fe0).
 
 ## Decisions
 
