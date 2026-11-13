@@ -26,7 +26,11 @@ service-worker asset list, WHATS_NEW). Commit and deploy when done.
 
 - **Note (duplicate sessions):** two other chats ("Quilting App Design Folders and Composite Canvas" 14d6bee9 and "Status Update Request" f0a556bf) have spawned duplicate workers in this same tree. The duplicate folders WIP was already stashed/discarded. A duplicate composites worker ("composites-build" 0c2d3db5, worker of f0a556bf) was told to STAND DOWN via steer message (2026-11-13); it cannot be stopped from this chat (403 — not our worker). Our own composites worker (198f7dea) was warned to check `git status`/`git diff` before coding and to work only on top of the committed b0b3fe0 state. If "composites-build" resurfaces and makes changes, its chat's orchestrator must stop it.
 
-- **Composites: IN PROGRESS** — our worker "composites" (198f7dea) building per `docs/features/composites.md` on top of committed folders work (b0b3fe0).
+- **Composites: DONE & committed** — worker stalled mid-build with uncommitted work; orchestrator finished it: wired `drawNow()` to `drawCompositeNow()` (the composite editor's `draw()` was a no-op — `drawNow` early-returns for non-editor screens), reset pointer/pinch state on composite editor open, fixed `boot()`/import-reload to load **both** folder kinds (composites folders were lost on reload), updated WHATS_NEW. Commit `5ce292e`.
+
+- **Verification (both features):** 53 tests pass; `shoot.mjs` chromium green incl. new composite walkthrough (needs `LD_LIBRARY_PATH=/tmp/pwlibs/usr/lib/x86_64-linux-gnu` on this host — system chromium libs are incomplete); `scripts/verify-composites.mjs` (committed) walks the full E2E flow — create folder, add blocks, move/rotate/duplicate/undo, folder chips/screens, export image, persistence across reload, backup mentions composites — all PASS, no page errors.
+
+- **Pushed to `ohone/tide-stitch` main** (`4d2443a..5ce292e`). **DEPLOY FAILED:** GitHub Actions run 43496643229 — the repo has **zero Actions secrets**; `CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID` are unset, so `npx wrangler deploy` exits 1. No Cloudflare credentials exist on this VM either. **Blocked on the owner** to add the two secrets to the repo (Settings → Secrets → Actions) and re-run the deploy workflow (or set them and tell us to re-run). Until then https://quilt.eoghan.dev serves the old version.
 
 ## Decisions
 
